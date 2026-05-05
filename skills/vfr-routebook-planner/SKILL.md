@@ -19,6 +19,7 @@ Apply these defaults unless the user overrides them:
 
 - **Aircraft**: Draco X.
 - **Planning ground speed**: Use `120 kt` for Draco X simulator sightseeing routebooks when no speed is provided. If the user wants slower low-level sightseeing, use `100 kt`; if they provide an actual cruise/ground speed, use that value.
+- **Output directory**: When creating a routebook file in this repository, save it under `navlogs/` by default, not `routebooks/`, unless the user explicitly requests another directory.
 - **Route theme**: Prefer Japanese Sengoku-period history when planning scenic routes in Japan.
 - **Historical emphasis**: When reasonable, route over or near castles, castle ruins, battlefields, old highways, castle towns, clan domains, and places associated with Sengoku figures.
 
@@ -30,6 +31,20 @@ Build the routebook with a clear skeleton first, then add flesh.
 - Flesh: scenery, history, local context, and visual highlights that enrich the flight after the navigation skeleton is clear.
 
 Never rely only on small or ambiguous landmarks such as a single building, a small forest patch, a minor pond, or a vague compass bearing. Use them only as secondary confirmation.
+
+## Airborne Landmark Disambiguation
+
+Assume the pilot does not know local place names from the cockpit. A named city, river, lake, mountain, castle, road, or airport is not useful by itself unless the routebook explains how it looks from the air and how to distinguish it from nearby lookalikes.
+
+For every primary guiding line, turn point, lake, river, valley, bay, mountain, or destination airport, describe its **visual signature**:
+
+- **Scale**: say whether it is huge, medium, tiny, long, narrow, wide, basin-sized, bay-sized, etc. When helpful, include approximate length/width or compare it with nearby alternatives, for example `猪苗代湖是大型湖面，东西/南北尺度都很大，不是山北侧的小水库`.
+- **Shape**: describe the outline visible from above: round lake, long narrow reservoir, hooked bay, straight coast, braided river, broad basin, mountain wall, saddle/pass, river confluence, delta, island chain, runway strip, etc.
+- **Relative position**: anchor the feature to larger terrain: north/south/east/west side of a basin, at the foot of a mountain wall, on the coastal side of a ridge, the northern of two parallel rivers, the larger lake south of the small reservoir, the river that exits the wide plain, etc.
+- **Context**: identify what surrounds it: sea on one side and mountains on the other, city grid on the plain edge, farmland around a river, volcano/mountain north of the lake, a bay mouth opening to the ocean, etc.
+- **Lookalike rejection**: explicitly mention nearby confusing features and how not to choose them. If there are two similar rivers, lakes, reservoirs, valleys, coast inlets, or towns, write the differentiator in cockpit language: `take the northern/wider river`, `ignore the small reservoir north of the ridge`, `do not turn at the first small bay; wait for the broad bay with a city on its south shore`.
+
+Do not assume the pilot can read place names on the terrain. Place names are labels for the routebook; airborne navigation must be possible from size, shape, direction, adjacency, and sequence.
 
 ## Inputs To Seek Or Infer
 
@@ -54,7 +69,7 @@ Confirm these items from authoritative or map-based sources:
 
 - Airport names, ICAO/IATA identifiers, runway orientation, field location, and major nearby terrain or city context when relevant.
 - Departure, destination, intermediate waypoints, coordinates, and distances needed for ETE calculations.
-- Macro visual features: coastlines, rivers, valleys, highways, railways, ridges, lakes, urban edges, bays, plains, mountain walls, and other catch features.
+- Macro visual features: coastlines, rivers, valleys, highways, railways, ridges, lakes, urban edges, bays, plains, mountain walls, and other catch features, including their visible size, shape, nearby lookalikes, and relative position from the cockpit.
 - Current non-weather aviation facts if they affect the routebook, such as airport existence, airspace, procedures, charted restrictions, or navaids.
 - Historical sites and claims used in commentary, especially Sengoku-era castles, battles, clans, daimyo, roads, and castle towns.
 
@@ -86,8 +101,10 @@ Every route leg must include these four elements:
 
 1. **Heading/Bearing**: Give an approximate magnetic/true-style course or plain-language direction, such as `080° / 东北偏东`. Use it to establish the initial direction, not as the only navigation method.
 2. **Time/ETE**: Estimate time from distance and ground speed. Default to Draco X at `120 kt`, approximately `2.0 NM/min`, for simulator routebooks when no speed is provided.
-3. **Guiding Line**: Give a continuous visual feature that is hard to lose from the air, such as coastline, river, valley corridor, highway, railway, ridge line, lake shore, or urban edge.
-4. **Absolute Backstop / Catch Feature**: Give a large, unmistakable terrain or geography change that tells the pilot the leg is ending and a turn or new action is due, such as a coastline bend, mountain wall, bay mouth, broad plain, major river junction, large lake, or city edge.
+3. **Guiding Line**: Give a continuous visual feature that is hard to lose from the air, such as coastline, river, valley corridor, highway, railway, ridge line, lake shore, or urban edge. Include its visual signature: scale, shape, side-of-aircraft expectation, and surrounding terrain.
+4. **Absolute Backstop / Catch Feature**: Give a large, unmistakable terrain or geography change that tells the pilot the leg is ending and a turn or new action is due, such as a coastline bend, mountain wall, bay mouth, broad plain, major river junction, large lake, or city edge. Explain why it is not the smaller or earlier similar feature nearby.
+
+When a leg uses a named landmark that could be confused with another feature, add a **混淆排除** cue in either `引导线`, `终止点 / 兜底防线`, or `易错点`.
 
 ## Output Structure
 
@@ -110,6 +127,8 @@ Write Markdown routebooks with this order unless the user requests a different f
 - **预计时间**：
 - **引导线**：
 - **终止点 / 兜底防线**：
+- **空中形态**：
+- **混淆排除**：
 
 ### 历史与风景解说 (Flesh)
 - **视觉彩蛋**：
@@ -128,6 +147,11 @@ For short answers or single-leg work, use only the relevant sections.
 
 - Be concrete, spatial, and pilot-facing.
 - Prefer large visible geography over named trivia.
+- Describe landmarks as the pilot sees them from the air, not as map labels. Always give size, shape, relative position, and surrounding context for primary landmarks.
+- If nearby lookalikes exist, name the cockpit-level difference before the pilot reaches them: bigger/smaller, northern/southern, first/second, coastal/inland, lake/reservoir, main river/tributary, broad basin/narrow valley, etc.
+- For lakes and reservoirs, state whether the water body is huge, broad, long/narrow, dam-shaped, isolated, or attached to a basin. If a small reservoir or pond lies near the route, warn against mistaking it for the main lake.
+- For rivers, specify which branch or parallel river to follow using relative position and behavior: northern/southern branch, wider main river, the one entering/exiting the basin, the river paired with the highway/railway, or the river that leads toward the visible mountain gap.
+- For mountains and passes, describe the wall/gap/saddle shape and which side of the mountain mass the pilot should remain on.
 - Use short paragraphs and bullets; routebooks should be scannable in flight.
 - Put navigation before sightseeing in every leg.
 - Use approximate phrasing when data is uncertain: `约`, `大致`, `可作为辅助确认`.
@@ -153,6 +177,9 @@ Before finalizing a routebook, verify:
 - Each leg has heading, ETE, guiding line, and catch feature.
 - The guiding line is continuous and visible at VFR scale.
 - The catch feature is macro-scale and hard to overshoot unnoticed.
+- Each primary landmark has an airborne visual signature: size, shape, relative position, and surrounding context.
+- Any likely lookalike landmark has an explicit rejection cue, especially nearby lakes/reservoirs, river branches, parallel valleys, coastal bays, and similar towns.
+- Turn points are described by terrain sequence as well as name: what appears before, what the target looks like, and what means the pilot has gone too far.
 - For Japan routes, useful Sengoku sites have been considered and included when they fit the visual route.
 - Historical figures, battles, and sites in the commentary have been checked against reputable sources or marked uncertain.
 - Scenery/history does not obscure the navigation instructions.
@@ -165,6 +192,7 @@ When revising an existing routebook:
 
 1. Preserve useful route intent and user wording where possible.
 2. Identify legs that depend on weak micro-landmarks.
-3. Replace weak cues with macro guiding lines and catch features.
-4. Recalculate ETE if distance or ground speed changes.
-5. Return either the revised Markdown or a concise change list, depending on the user's request.
+3. Identify named landmarks that lack cockpit-visible description or could be confused with nearby similar features.
+4. Replace weak cues with macro guiding lines, catch features, visual signatures, and lookalike rejection cues.
+5. Recalculate ETE if distance or ground speed changes.
+6. Return either the revised Markdown or a concise change list, depending on the user's request.
