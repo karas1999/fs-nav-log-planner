@@ -1,0 +1,4 @@
+interface:
+  display_name: "VFR Routebook Planner"
+  short_description: "Create cockpit-readable simulator VFR routebooks"
+  default_prompt: "Use $vfr-routebook-planner to create a Chinese Markdown sightseeing routebook for this simulator VFR route."

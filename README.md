@@ -6,7 +6,7 @@
 
 本项目是代理技能与文本资料，不是独立应用；没有安装依赖、启动服务或构建步骤。需要能加载 `SKILL.md` 的代理环境，以及用户提供的航线资料或可核验的地理资料。
 
-Git 基线 `f21b149` 的技能入口位于 `skills/vfr-routebook-planner/SKILL.md`，界面配置位于其 `agents/openai.yaml`。将技能交给支持它的代理后，可请求：
+技能入口为 [.agents/skills/vfr-routebook-planner/SKILL.md](.agents/skills/vfr-routebook-planner/SKILL.md)，界面配置位于其 `agents/openai.yaml`。将技能交给支持它的代理后，可请求：
 
 ```text
 使用 vfr-routebook-planner，为指定出发机场到目的机场生成中文模拟飞行 VFR 观光路书。
@@ -14,9 +14,9 @@ Git 基线 `f21b149` 的技能入口位于 `skills/vfr-routebook-planner/SKILL.m
 
 技能默认使用 Draco X、120 kt 规划地速；用户明确要求慢速观光时可用 100 kt。默认输出保存在 `navlogs/`，该目录被 Git 忽略。实际航线、地形和距离应根据用户资料或来源核验；路书不替代真实飞行所需的正式资料和判断。
 
-## 本地技能布局
+## 技能布局
 
-初始化时发现未提交的布局改动：`skills/vfr-routebook-planner/` 的两个已跟踪文件已在工作区删除，新版技能和三个主题参考文件位于未跟踪的 `.agents/skills/vfr-routebook-planner/`。本次文档初始化保留这一状态，没有提交、恢复或迁移这些文件。继续技能开发前先核对 Git 状态与实际入口；不要把本地新版布局当成已发布版本。
+技能统一位于 `.agents/skills/vfr-routebook-planner/`：`SKILL.md` 保留入口、默认值、工作流程和航段要求，`references/` 按需提供路书方法、资料核验边界和日本战国主题指导，`agents/openai.yaml` 定义界面名称与默认提示。旧的 `skills/vfr-routebook-planner/` 入口已移除。
 
 ## 验证
 
@@ -25,5 +25,5 @@ Git 基线 `f21b149` 的技能入口位于 `skills/vfr-routebook-planner/SKILL.m
 ## 项目文档
 
 - [AGENTS.md](AGENTS.md)：工作入口与项目约束。
-- [PROJECT.md](PROJECT.md)：当前状态、布局差异和交接事项。
+- [PROJECT.md](PROJECT.md)：当前状态、架构和交接事项。
 - [CHANGELOG.md](CHANGELOG.md)：依据 Git 历史记录的里程碑。

@@ -1,4 +1,0 @@
-interface:
-  display_name: "VFR Routebook Planner"
-  short_description: "Build VFR routebook markdown"
-  default_prompt: "Create a Markdown VFR routebook using heading, ETE, guiding line, catch feature, and concise scenery notes."
